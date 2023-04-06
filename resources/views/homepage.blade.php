@@ -10,6 +10,7 @@
     <h1>Hello, this is a blade template.</h1>
     <p>A great number is {{ 2 + 2 }}</p>
     <p>The current year is {{ date('Y') }}</p>
+    <h3>{{ $name }}</h3>
     <a href="/about">Go to the about page</a>
 </body>
 </html>
