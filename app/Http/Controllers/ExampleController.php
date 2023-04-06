@@ -9,7 +9,8 @@ class ExampleController extends Controller
     public function homepage() {
         // imagine we loaded from the database - we pass the below info to the view
         $ourName = 'Nick';
-        return view('homepage', ['name' => $ourName, 'catname' => 'Meow']);
+        $animals = ['Meow', 'Bark', "Purr"];
+        return view('homepage', ['allAnimals' => $animals, 'name' => $ourName, 'catname' => 'Meow']);
     }
 
     public function aboutPage() {
