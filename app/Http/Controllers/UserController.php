@@ -35,4 +35,13 @@ class UserController extends Controller
             return "Sorry!!!";
         }
     }
+
+    public function showCorrectHomepage() {
+        if (auth()->check()) {
+            return view('homepage-feed');
+        } else {
+            return view('homepage');
+        }
+    }
+
 }
