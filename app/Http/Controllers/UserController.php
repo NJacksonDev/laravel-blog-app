@@ -8,40 +8,57 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $incomingFields = $request->validate([
-            'username' => ['required', 'min:3', 'max:20', Rule::unique('users', 'username')],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password'=> ['required', 'min:8', 'confirmed']
+            "username" => [
+                "required",
+                "min:3",
+                "max:20",
+                Rule::unique("users", "username"),
+            ],
+            "email" => ["required", "email", Rule::unique("users", "email")],
+            "password" => ["required", "min:8", "confirmed"],
         ]);
 
-        $incomingFields['password'] = bcrypt($incomingFields['password']);
+        $incomingFields["password"] = bcrypt($incomingFields["password"]);
 
         User::create($incomingFields);
-        return 'Hello from register function';
+        return "Hello from register function";
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $incomingFields = $request->validate([
-            'loginusername' => 'required',
-            'loginpassword' => 'required'
+            "loginusername" => "required",
+            "loginpassword" => "required",
         ]);
 
-        if(auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) {
-            $request->session()->regenerate();    
-            return 'Congrats!!!';
-        }
-        else {
+        if (
+            auth()->attempt([
+                "username" => $incomingFields["loginusername"],
+                "password" => $incomingFields["loginpassword"],
+            ])
+        ) {
+            $request->session()->regenerate();
+            return "Congrats!!!";
+        } else {
             return "Sorry!!!";
         }
     }
 
-    public function showCorrectHomepage() {
+    public function showCorrectHomepage()
+    {
         if (auth()->check()) {
-            return view('homepage-feed');
+            return view("homepage-feed");
         } else {
-            return view('homepage');
+            return view("homepage");
         }
     }
 
+    public function logout()
+    {
+        auth()->logout();
+        return "You are now logged out";
+    }
 }
