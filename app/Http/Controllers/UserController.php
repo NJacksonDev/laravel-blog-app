@@ -41,7 +41,7 @@ class UserController extends Controller
             ])
         ) {
             $request->session()->regenerate();
-            return "Congrats!!!";
+            return redirect("/");
         } else {
             return "Sorry!!!";
         }
@@ -59,6 +59,6 @@ class UserController extends Controller
     public function logout()
     {
         auth()->logout();
-        return "You are now logged out";
+        return redirect("/");
     }
 }
